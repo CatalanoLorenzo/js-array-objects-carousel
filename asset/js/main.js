@@ -36,154 +36,86 @@ const images = [
         title: "Marvel's Avengers",
         text: 'Marvel\'s Avengers is an epic, third-person, action-adventure game that combines an original, cinematic story with single-player and co-operative gameplay.',
     }
-];
+]
+const colEl = document.querySelector('.col-3')
+const backButton = document.querySelector('.back_button')
+const nextButton = document.querySelector('.next_button')
+let imgvisible = 0
 
-
-//ciclo all'interno dell'array per ogni elemento
-images.forEach((img, index) => {
-    //creo una constante e l'associo al valore della kay image
-    const percorsoImg = img.image
-    //creo una constante e l'associo al valore della kay title
-    const titolo = img.title
-    //creo una constante e l'associo al valore della kay text
-    const testo = img.text
-    
-    const j = index
-    console.log(j);
-    let imgvisible = 0
-    //utilizzo le variabili generate in precedenza per usare la funzione
-    generate_row_col_img_src_and_h1_and_p(percorsoImg, titolo, testo, images, j,imgvisible)
-    
+images.forEach((array,index) => {
+    const src = array.image
+    const title = array.title
+    const text = array.text
+    const numberorder = index
+    console.log(src)
+    Generat_input_card(src,title,text,imgvisible,numberorder)
 })
-const principlaCard = document.querySelector('.principal_card')
 
-const conatinerButton = document.createElement('div')
+const cardsLoad = document.querySelectorAll('.card');
 
-conatinerButton.classList.add('container_button', 'w-100', 'justify-content-between', 'd-flex')
+nextButton.addEventListener('click', function () {
+    const imgCurrentVisible = cardsLoad[imgvisible]
+    console.log(imgCurrentVisible);
 
-principlaCard.insertAdjacentElement('beforeend', conatinerButton)
-
-const buttonB = document.createElement('button')
-
-buttonB.classList.add('back_button')
-
-const buttonN = document.createElement('button')
-
-buttonN.classList.add('next_button')
-
-console.log(buttonB,buttonN)
-
-const buttonNext = document.querySelector('.next_button')
-
-const buttonBack = document.querySelector('.back_button')
-
-conatinerButton.insertAdjacentElement('beforeend', buttonB)
-
-conatinerButton.insertAdjacentElement('beforeend', buttonN)
-
-const cardLoad = document.querySelector('.principal_card', 'primary');
-
-const allcardLoad = document.querySelector('.principal_card', 'primary');
-
-buttonNext.addEventListener('click', function () {
-
-    const imgCurrentVisible = cardLoad[imgvisible]
-
-    const allImgCurrentVisible = allcardLoad[imgvisible]
-
-    allImgCurrentVisible.classList.remove('primary');
-
-    imgCurrentVisible.classList.remove('visibl');
-
-    imgvisible++;
-
-    if (imgvisible == array.length) {
-
+    imgCurrentVisible.classList.remove('displyon')
+    if (imgvisible == images.length - 1) {
         imgvisible = 0;
+    }else{
+        imgvisible++;
     }
-    selectImg(cardLoad, allcardLoad,imgvisible);
-    console.log(allcardLoad);
+    const nextAllImgEl = cardsLoad[imgvisible]
+    nextAllImgEl.classList.add('displyon')
 });
 
-buttonBack.addEventListener('click', function () {
+backButton.addEventListener('click', function () {
+    const imgCurrentVisible = cardsLoad[imgvisible]
+    console.log(imgCurrentVisible);
 
-    
-
-    allImgCurrentVisible.classList.remove('primary');
-
-    imgCurrentVisible.classList.remove('visibl');
-
-    imgvisible--;
-    
-    if (imgvisible < 0) {
-        imgvisible = (array.length - 1);
-    };
-    selectImg(cardLoad, allcardLoad,imgvisible);
+    imgCurrentVisible.classList.remove('displyon')
+    if (imgvisible == 0) {
+        imgvisible = images.length - 1;
+    }else{
+        imgvisible--;
+    }
+    const nextAllImgEl = cardsLoad[imgvisible]
+    nextAllImgEl.classList.add('displyon')
 });
 
 
 
-//Milestone 0:
-// creazione del markup statico: costruiamo il container e inseriamo l'immagine grande in modo da poter stilare lo slider.
-/** Generate into row :col>img+src
- * genera una collonna con dentro una immagine 
- *  <div class="col">
-        <img src="" alt="">
-    </div>
- */
-function generate_row_col_img_src_and_h1_and_p(percorsoImg, titolo, testo, array, index,imgvisible) {
 
 
-    imgvisible = 0;
-    //associa rowEl all'elemento del document con classe row
-    const rowEl = document.querySelector('.row')
-    //genera un div
-    const colEl = document.createElement('div')
-    //genera delle classe al col 'primary','col','principal_card' o 'secondary','col','principal_card'
-    if (index == imgvisible) {
-        colEl.classList.add('primary', 'col-3', 'principal_card', 'd-flex', 'align-items-center', 'flex-column')
-    } else {
-        colEl.classList.add('secondary', 'col-3', 'principal_card', 'd-none', 'align-items-center', 'flex-column')
+
+
+
+
+
+function Generat_input_card(srcimg,title,text,imgvisible,numberorder) {
+    const cards = document.createElement('div')
+    
+    if (numberorder == imgvisible) {
+        cards.classList.add('card','displyon','primary')
+    }else{
+        cards.classList.add('card',)
     }
-    //genera un tag img 
+    colEl.insertAdjacentElement('beforeend',cards)
+    
+    const cardHeader = document.createElement('div')
+    cardHeader.classList.add('card-header')
+    cards.insertAdjacentElement('beforeend',cardHeader)
+
+    const h1El = document.createElement('h1')
+    cardHeader.insertAdjacentElement('beforeend',h1El)
+    h1El.innerText = title
+
+    const cardBody = document.createElement('div')
+    cardBody.classList.add('card-body')
+    cards.insertAdjacentElement('beforeend',cardBody)
+
     const imgEl = document.createElement('img')
-    //genera un src per img 
-    imgEl.src = `./asset/${percorsoImg}`
-    //genera un tag h1
-    const h4El = document.createElement('h4')
-    //inserisce del testo rima della chiusura del h4
-    h4El.insertAdjacentText('beforeend', titolo)
-    //genera un tag p
+    cardBody.insertAdjacentElement('beforeend',imgEl)
+    imgEl.src = `./asset/${srcimg}`
+   
     const pEl = document.createElement('p')
-    //inserisce del testo rima della chiusura del p
-    pEl.insertAdjacentText('beforeend', testo)
-    //inserisce prima della chiusura del 'div' con classe row il 'div' col
-    rowEl.insertAdjacentElement('beforeend', colEl)
-    //inserisce prima della chiusura del 'div' con classe col il tag img
-    colEl.insertAdjacentElement('beforeend', imgEl)
-    //inserisce prima della chiusura del 'div' con classe col il tag h4
-    colEl.insertAdjacentElement('beforeend', h4El)
-    //inserisce prima della chiusura del 'div' con classe col il tag p
-    colEl.insertAdjacentElement('beforeend', pEl)
-
-
-
- 
-
-   
-
-
-
-
-
-
-
-
-}
-function selectImg(cardLoad, allcardLoad,imgvisible) {
-   
-    const nextAllImgEl = allcardLoad[imgvisible];
-    const nextImgEl = cardLoad[imgvisible];
-    nextAllImgEl.classList.add('primary');
-    nextImgEl.classList.add('visibl');
+    pEl.innerText = text
 }

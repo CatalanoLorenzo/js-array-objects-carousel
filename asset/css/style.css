@@ -1,11 +1,13 @@
-.principal_card{
-    overflow: hidden;
+.card{
+    width: 300px;
 }
-.principal_card img{
-    width: 70%;
-    height: 100px;
-    object-fit: cover;
-}
-.secondary{
+.card {
     display: none;
+}
+.card img{
+    width: 100%;
+    aspect-ratio: 1/1;
+}
+.card.displyon{
+    display: block;
 }
