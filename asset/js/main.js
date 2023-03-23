@@ -37,6 +37,7 @@ const images = [
         text: 'Marvel\'s Avengers is an epic, third-person, action-adventure game that combines an original, cinematic story with single-player and co-operative gameplay.',
     }
 ]
+//------------Seleziono gli elementi nella DOM --------------
 const colEl = document.querySelector('.col-6')
 const showColEl = document.querySelector('.col-3')
 const backButton = document.querySelector('.back_button')
@@ -44,40 +45,62 @@ const nextButton = document.querySelector('.next_button')
 const stopButton = document.querySelector('.stop_button')
 const playButton = document.querySelector('.play_button')
 const reversButton = document.querySelector('.resers_button')
+//-----------------------------------------------------------
 
-
+//------------Setto i vari contatori e valori ---------------
+let verso = true
 let imgvisible = 0
-let numberorder
 const timingInterval = 1000
 const timingTimeout = 3000
+//-----------------------------------------------------------
+
+//-------------Ciclo nell'array e mi creo gli elementi-------
 images.forEach((array, index) => {
     const src = array.image
     const title = array.title
     const text = array.text
     const order = index
-    numberorder = order
-    console.log(src)
+    //-----Card principale con un unica immagine visibile----
     Generat_input_card(src, title, text, imgvisible, order)
-    generet_list_img(src, imgvisible, order)
-})
+    //-------------------------------------------------------
 
+    //-----Card secondaria con tutte le immagini visibili----
+    generet_list_img(src, imgvisible, order)
+    //-------------------------------------------------------
+})
+//-----------------------------------------------------------
+
+//--Seleziono gli elementi nella DOM generati dopo il ciclo--
 const cardsLoad = document.querySelectorAll('.col-6 .card');
 const allCardsLoad = document.querySelectorAll('.col-3 .card');
-let verso = true
+//-----------------------------------------------------------
+
+//--------Genero un timeout che fa partire l'intervallo------
 setTimeout(() => {
+
+    //-------inizio l'intervallo-----------------------------
     const idInterval = setInterval(() => {
+
+        //------------------versi di marcia -----------------
         if(verso){
             imgvisible = next(cardsLoad, imgvisible, allCardsLoad, images)
             console.log('fine intervallo');
         }else{
             imgvisible = back(cardsLoad, imgvisible, allCardsLoad, images)
         }
-    }, (timingInterval))
+        //---------------------------------------------------
 
+    }, (timingInterval))
+    //-------------------------------------------------------
+
+    //---Evento sul bottono stop per fermare l'intervallo----
     stopButton.addEventListener('click', function () {
         clearInterval(idInterval)
         console.log('stop intervallo');
     })
+    //-------------------------------------------------------
+
+    //--Evento sul bottono play per riprendere l'intervallo--
     playButton.addEventListener('click', function () {
         idInterval = setInterval(() => {
             imgvisible = next(cardsLoad, imgvisible, allCardsLoad, images)
@@ -85,6 +108,9 @@ setTimeout(() => {
         }, (timingInterval))
         console.log('play intervallo');
     })
+    //-------------------------------------------------------
+
+    //---Evento sul bottono revers per invertire la marcio---
     reversButton.addEventListener('click',function(){
         if(verso){
             verso = false
@@ -92,21 +118,33 @@ setTimeout(() => {
             verso = true
         }
     })
-}, (timingTimeout))
+    //-------------------------------------------------------
 
+}, (timingTimeout))
+//-----------------------------------------------------------
+
+//-Evento sul bottono next per cambiare immgaine selezionata-
 nextButton.addEventListener('click', function () {
     imgvisible = next(cardsLoad, imgvisible, allCardsLoad, images)
 });
+//-----------------------------------------------------------
+
+//-Evento sul bottono back per cambiare immgaine selezionata-
 
 backButton.addEventListener('click', function () {
     imgvisible = back(cardsLoad, imgvisible, allCardsLoad, images)
 });
+//-----------------------------------------------------------
 
 
 
-
-
-
+//__________FUNCTION_________________________________________
+/**
+ * 
+ * @param {String} srcimg 
+ * @param {String} imgvisible 
+ * @param {String} numberorder 
+ */
 function generet_list_img(srcimg, imgvisible, numberorder) {
     const cards = document.createElement('div')
 
