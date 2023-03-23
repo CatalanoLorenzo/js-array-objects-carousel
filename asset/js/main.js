@@ -37,10 +37,18 @@ const images = [
         text: 'Marvel\'s Avengers is an epic, third-person, action-adventure game that combines an original, cinematic story with single-player and co-operative gameplay.',
     }
 ];
+//ciclo all'interno dell'array per ogni elemento
+images.forEach((img) => {
+    //creo una constante e l'associo al valore della kay image
+    const percorsoImg = img.image
+    //creo una constante e l'associo al valore della kay title
+    const titolo = img.title
+    //creo una constante e l'associo al valore della kay text
+    const testo = img.text
+    //utilizzo le variabili generate in precedenza per usare la funzione
+    generate_row_col_img_src_and_h1_and_p(percorsoImg, titolo, testo)
 
-
-
-
+})
 
 
 
@@ -55,7 +63,7 @@ const images = [
         <img src="" alt="">
     </div>
  */
-function generate_row_col_img_src_and_h1_and_p(percorsoImg,titolo,testo) {
+function generate_row_col_img_src_and_h1_and_p(percorsoImg, titolo, testo) {
     //associa rowEl all'elemento del document con classe row
     const rowEl = document.querySelector('.row')
     //genera un div
@@ -67,19 +75,19 @@ function generate_row_col_img_src_and_h1_and_p(percorsoImg,titolo,testo) {
     //genera un tag h1
     const h1El = document.createElement('h1')
     //inserisce del testo rima della chiusura del h1
-    h1El.insertAdjacentText('beforeend',titolo)
+    h1El.insertAdjacentText('beforeend', titolo)
     //genera un tag p
     const pEl = document.createElement('p')
     //inserisce del testo rima della chiusura del p
-    pEl.insertAdjacentText('beforeend',testo)
+    pEl.insertAdjacentText('beforeend', testo)
     //genera un src per img 
-    imgEl.src = `./asset/img/${percorsoImg}`
+    imgEl.src = `./asset/${percorsoImg}`
     //inserisce prima della chiusura del 'div' con classe row il 'div' col
-    rowEl.insertAdjacentElement('beforeend',colEl)
+    rowEl.insertAdjacentElement('beforeend', colEl)
     //inserisce prima della chiusura del 'div' con classe col il tag img
-    colEl.insertAdjacentElement('beforeend',imgEl)
+    colEl.insertAdjacentElement('beforeend', imgEl)
     //inserisce prima della chiusura del 'div' con classe col il tag h1
-    colEl.insertAdjacentElement('beforeend',h1El)
+    colEl.insertAdjacentElement('beforeend', h1El)
     //inserisce prima della chiusura del 'div' con classe col il tag p
-    colEl.insertAdjacentElement('beforeend',pEl)
+    colEl.insertAdjacentElement('beforeend', pEl)
 }
