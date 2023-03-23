@@ -47,16 +47,79 @@ images.forEach((img, index) => {
     const titolo = img.title
     //creo una constante e l'associo al valore della kay text
     const testo = img.text
-
+    
     const j = index
     console.log(j);
     let imgvisible = 0
     //utilizzo le variabili generate in precedenza per usare la funzione
     generate_row_col_img_src_and_h1_and_p(percorsoImg, titolo, testo, images, j,imgvisible)
-
+    
 })
+const principlaCard = document.querySelector('.principal_card')
 
+const conatinerButton = document.createElement('div')
 
+conatinerButton.classList.add('container_button', 'w-100', 'justify-content-between', 'd-flex')
+
+principlaCard.insertAdjacentElement('beforeend', conatinerButton)
+
+const buttonB = document.createElement('button')
+
+buttonB.classList.add('back_button')
+
+const buttonN = document.createElement('button')
+
+buttonN.classList.add('next_button')
+
+console.log(buttonB,buttonN)
+
+const buttonNext = document.querySelector('.next_button')
+
+const buttonBack = document.querySelector('.back_button')
+
+conatinerButton.insertAdjacentElement('beforeend', buttonB)
+
+conatinerButton.insertAdjacentElement('beforeend', buttonN)
+
+const cardLoad = document.querySelector('.principal_card', 'primary');
+
+const allcardLoad = document.querySelector('.principal_card', 'primary');
+
+buttonNext.addEventListener('click', function () {
+
+    const imgCurrentVisible = cardLoad[imgvisible]
+
+    const allImgCurrentVisible = allcardLoad[imgvisible]
+
+    allImgCurrentVisible.classList.remove('primary');
+
+    imgCurrentVisible.classList.remove('visibl');
+
+    imgvisible++;
+
+    if (imgvisible == array.length) {
+
+        imgvisible = 0;
+    }
+    selectImg(cardLoad, allcardLoad,imgvisible);
+    console.log(allcardLoad);
+});
+
+buttonBack.addEventListener('click', function () {
+
+    
+
+    allImgCurrentVisible.classList.remove('primary');
+
+    imgCurrentVisible.classList.remove('visibl');
+
+    imgvisible--;
+    
+    if (imgvisible < 0) {
+        imgvisible = (array.length - 1);
+    };
+    selectImg(cardLoad, allcardLoad,imgvisible);
+});
 
 
 
@@ -102,48 +165,12 @@ function generate_row_col_img_src_and_h1_and_p(percorsoImg, titolo, testo, array
     colEl.insertAdjacentElement('beforeend', h4El)
     //inserisce prima della chiusura del 'div' con classe col il tag p
     colEl.insertAdjacentElement('beforeend', pEl)
-    const principlaCard = document.querySelector('.principal_card')
-    const conatinerButton = document.createElement('div')
-    conatinerButton.classList.add('container_button', 'w-100', 'justify-content-between', 'd-flex')
-    principlaCard.insertAdjacentElement('beforeend', conatinerButton)
-    const buttonB = document.createElement('button')
-    buttonB.classList.add('back_button')
-    const buttonN = document.createElement('button')
-    buttonN.classList.add('next_button')
-    console.log(buttonB,buttonN)
-    const buttonNext = document.querySelector('.next_button')
-    const buttonBack = document.querySelector('.back_button')
-    conatinerButton.insertAdjacentElement('beforeend', buttonB)
-    conatinerButton.insertAdjacentElement('beforeend', buttonN)
 
 
-    const cardLoad = document.querySelector('.principal_card', 'primary');
-    const allcardLoad = document.querySelector('.principal_card', 'primary');
-    buttonNext.addEventListener('click', function () {
-        const imgCurrentVisible = cardLoad[imgvisible]
-        const allImgCurrentVisible = allcardLoad[imgvisible]
 
-        allImgCurrentVisible.classList.remove('primary');
-        imgCurrentVisible.classList.remove('visibl');
-        imgvisible++;
-        if (imgvisible == array.length) {
-            imgvisible = 0;
-        }
-        selectImg(imgCurrentVisible, allImgCurrentVisible);
-        console.log(allcardLoad);
-    });
+ 
 
-    buttonBack.addEventListener('click', function () {
-        const imgCurrentVisible = cardLoad[imgvisible]
-        const allImgCurrentVisible = allcardLoad[imgvisible]
-        allImgCurrentVisible.classList.remove('primary');
-        imgCurrentVisible.classList.remove('visibl');
-        imgvisible--;
-        if (imgvisible < 0) {
-            imgvisible = (array.length - 1);
-        };
-        selectImg(imgCurrentVisible, allImgCurrentVisible);
-    });
+   
 
 
 
@@ -153,8 +180,8 @@ function generate_row_col_img_src_and_h1_and_p(percorsoImg, titolo, testo, array
 
 
 }
-function selectImg(imgCurrentVisible, allImgCurrentVisible) {
-
+function selectImg(cardLoad, allcardLoad,imgvisible) {
+   
     const nextAllImgEl = allcardLoad[imgvisible];
     const nextImgEl = cardLoad[imgvisible];
     nextAllImgEl.classList.add('primary');
