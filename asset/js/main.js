@@ -37,7 +37,8 @@ const images = [
         text: 'Marvel\'s Avengers is an epic, third-person, action-adventure game that combines an original, cinematic story with single-player and co-operative gameplay.',
     }
 ]
-const colEl = document.querySelector('.col-3')
+const colEl = document.querySelector('.col-6')
+const showColEl = document.querySelector('.col-3')
 const backButton = document.querySelector('.back_button')
 const nextButton = document.querySelector('.next_button')
 let imgvisible = 0
@@ -49,36 +50,50 @@ images.forEach((array,index) => {
     const numberorder = index
     console.log(src)
     Generat_input_card(src,title,text,imgvisible,numberorder)
+    generet_list_img(src,imgvisible,numberorder)
 })
 
-const cardsLoad = document.querySelectorAll('.card');
-
+const cardsLoad = document.querySelectorAll('.col-6 .card');
+const allCardsLoad = document.querySelectorAll('.col-3 .card');
 nextButton.addEventListener('click', function () {
     const imgCurrentVisible = cardsLoad[imgvisible]
+    const imgAllCurrentVisible = allCardsLoad[imgvisible]
+
     console.log(imgCurrentVisible);
 
     imgCurrentVisible.classList.remove('displyon')
+    imgAllCurrentVisible.classList.remove('primary')
     if (imgvisible == images.length - 1) {
         imgvisible = 0;
     }else{
         imgvisible++;
     }
-    const nextAllImgEl = cardsLoad[imgvisible]
-    nextAllImgEl.classList.add('displyon')
+    const nextimgCurrentVisible = cardsLoad[imgvisible]
+    const nextAllImgCurrentVisible = allCardsLoad[imgvisible]
+    nextimgCurrentVisible.classList.add('displyon')
+    nextAllImgCurrentVisible.classList.add('primary')
 });
 
 backButton.addEventListener('click', function () {
     const imgCurrentVisible = cardsLoad[imgvisible]
+    const imgAllCurrentVisible = allCardsLoad[imgvisible]
+
     console.log(imgCurrentVisible);
 
     imgCurrentVisible.classList.remove('displyon')
+    imgAllCurrentVisible.classList.remove('primary')
+
     if (imgvisible == 0) {
         imgvisible = images.length - 1;
     }else{
         imgvisible--;
     }
     const nextAllImgEl = cardsLoad[imgvisible]
+    const nextAllImgCurrentVisible = allCardsLoad[imgvisible]
+
     nextAllImgEl.classList.add('displyon')
+    nextAllImgCurrentVisible.classList.add('primary')
+
 });
 
 
@@ -86,15 +101,28 @@ backButton.addEventListener('click', function () {
 
 
 
-
-
-
-
-function Generat_input_card(srcimg,title,text,imgvisible,numberorder) {
+function generet_list_img(srcimg,imgvisible,numberorder) {
     const cards = document.createElement('div')
     
     if (numberorder == imgvisible) {
         cards.classList.add('card','displyon','primary')
+    }else{
+        cards.classList.add('card','displyon')
+    }
+    showColEl.insertAdjacentElement('beforeend',cards)
+    const imgEl = document.createElement('img') 
+    cards.insertAdjacentElement('beforeend',imgEl)
+    imgEl.src = `./asset/${srcimg}`
+}
+
+
+
+function Generat_input_card(srcimg,title,text,imgvisible,numberorder) {
+
+    const cards = document.createElement('div')
+    
+    if (numberorder == imgvisible) {
+        cards.classList.add('card','displyon')
     }else{
         cards.classList.add('card',)
     }
@@ -117,5 +145,6 @@ function Generat_input_card(srcimg,title,text,imgvisible,numberorder) {
     imgEl.src = `./asset/${srcimg}`
    
     const pEl = document.createElement('p')
+    cardBody.insertAdjacentElement('beforeend',pEl)
     pEl.innerText = text
 }

@@ -1,13 +1,15 @@
-.card{
-    width: 300px;
-}
 .card {
     display: none;
 }
-.card img{
+
+.col-6 .card .card-body img,.col-3 .card img{
     width: 100%;
     aspect-ratio: 1/1;
 }
+
 .card.displyon{
     display: block;
+}
+.primary{
+    border: 5px solid green;
 }
