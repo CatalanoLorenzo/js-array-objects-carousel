@@ -50,9 +50,9 @@ images.forEach((img, index) => {
 
     const j = index
     console.log(j);
-
+    let imgvisible = 0
     //utilizzo le variabili generate in precedenza per usare la funzione
-    generate_row_col_img_src_and_h1_and_p(percorsoImg, titolo, testo, images, j)
+    generate_row_col_img_src_and_h1_and_p(percorsoImg, titolo, testo, images, j,imgvisible)
 
 })
 
@@ -68,10 +68,10 @@ images.forEach((img, index) => {
         <img src="" alt="">
     </div>
  */
-function generate_row_col_img_src_and_h1_and_p(percorsoImg, titolo, testo, array, index) {
+function generate_row_col_img_src_and_h1_and_p(percorsoImg, titolo, testo, array, index,imgvisible) {
 
 
-    let imgvisible = 0;
+    imgvisible = 0;
     //associa rowEl all'elemento del document con classe row
     const rowEl = document.querySelector('.row')
     //genera un div
