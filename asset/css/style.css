@@ -1,0 +1,11 @@
+.principal_card{
+    overflow: hidden;
+}
+.principal_card img{
+    width: 70%;
+    height: 100px;
+    object-fit: cover;
+}
+.secondary{
+    display: none;
+}
