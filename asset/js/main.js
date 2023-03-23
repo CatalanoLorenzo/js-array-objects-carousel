@@ -43,6 +43,9 @@ const backButton = document.querySelector('.back_button')
 const nextButton = document.querySelector('.next_button')
 const stopButton = document.querySelector('.stop_button')
 const playButton = document.querySelector('.play_button')
+const reversButton = document.querySelector('.resers_button')
+
+
 let imgvisible = 0
 let numberorder
 const timingInterval = 1000
@@ -60,12 +63,17 @@ images.forEach((array, index) => {
 
 const cardsLoad = document.querySelectorAll('.col-6 .card');
 const allCardsLoad = document.querySelectorAll('.col-3 .card');
-
+let verso = true
 setTimeout(() => {
     const idInterval = setInterval(() => {
-        imgvisible = next(cardsLoad, imgvisible, allCardsLoad, images)
-        console.log('fine intervallo');
+        if(verso){
+            imgvisible = next(cardsLoad, imgvisible, allCardsLoad, images)
+            console.log('fine intervallo');
+        }else{
+            imgvisible = back(cardsLoad, imgvisible, allCardsLoad, images)
+        }
     }, (timingInterval))
+
     stopButton.addEventListener('click', function () {
         clearInterval(idInterval)
         console.log('stop intervallo');
@@ -77,48 +85,21 @@ setTimeout(() => {
         }, (timingInterval))
         console.log('play intervallo');
     })
+    reversButton.addEventListener('click',function(){
+        if(verso){
+            verso = false
+        }else{
+            verso = true
+        }
+    })
 }, (timingTimeout))
 
 nextButton.addEventListener('click', function () {
     imgvisible = next(cardsLoad, imgvisible, allCardsLoad, images)
-    /*  const imgCurrentVisible = cardsLoad[imgvisible]
-     const imgAllCurrentVisible = allCardsLoad[imgvisible]
- 
- 
-     imgCurrentVisible.classList.remove('displyon')
-     imgAllCurrentVisible.classList.remove('primary')
-     if (imgvisible == images.length - 1) {
-         imgvisible = 0;
-     }else{
-         imgvisible++;
-     }
-     const nextimgCurrentVisible = cardsLoad[imgvisible]
-     const nextAllImgCurrentVisible = allCardsLoad[imgvisible]
-     nextimgCurrentVisible.classList.add('displyon')
-     nextAllImgCurrentVisible.classList.add('primary') */
 });
 
 backButton.addEventListener('click', function () {
-    const imgCurrentVisible = cardsLoad[imgvisible]
-    const imgAllCurrentVisible = allCardsLoad[imgvisible]
-
-    console.log(imgCurrentVisible);
-
-    imgCurrentVisible.classList.remove('displyon')
-    imgAllCurrentVisible.classList.remove('primary')
-
-    if (imgvisible == 0) {
-        imgvisible = images.length - 1;
-    } else {
-        imgvisible--;
-    }
-    console.log(imgvisible);
-    const nextAllImgEl = cardsLoad[imgvisible]
-    const nextAllImgCurrentVisible = allCardsLoad[imgvisible]
-
-    nextAllImgEl.classList.add('displyon')
-    nextAllImgCurrentVisible.classList.add('primary')
-
+    imgvisible = back(cardsLoad, imgvisible, allCardsLoad, images)
 });
 
 
@@ -188,13 +169,31 @@ function next(cardsLoad, imgvisible, allCardsLoad, images) {
 
     if (imgvisible == images.length - 1) {
         imgvisible = 0;
-    } 
-    imgvisible++;
+    } else {
+        imgvisible++;
+
+    }
     console.log(imgvisible);
 
     add_class(cardsLoad, imgvisible, allCardsLoad)
     return imgvisible
 }
+function back(cardsLoad, imgvisible, allCardsLoad, images) {
+    remove_class(cardsLoad, imgvisible, allCardsLoad)
+    console.log(imgvisible);
+    console.log(images.length);
+
+    if (imgvisible == 0) {
+        imgvisible = images.length - 1;
+    } else {
+        imgvisible--;
+    }
+    console.log(imgvisible);
+
+    add_class(cardsLoad, imgvisible, allCardsLoad)
+    return imgvisible
+}
+
 function remove_class(cardsLoad, imgvisible, allCardsLoad) {
     const imgCurrentVisible = cardsLoad[imgvisible]
     const imgAllCurrentVisible = allCardsLoad[imgvisible]
