@@ -48,7 +48,6 @@ const reversButton = document.querySelector('.resers_button')
 //-----------------------------------------------------------
 
 //------------Setto i vari contatori e valori ---------------
-let verso = true
 let imgvisible = 0
 const timingInterval = 1000
 const timingTimeout = 3000
@@ -77,9 +76,10 @@ const allCardsLoad = document.querySelectorAll('.col-3 .card');
 
 //--------Genero un timeout che fa partire l'intervallo------
 setTimeout(() => {
+    let verso = true
 
     //-------inizio l'intervallo-----------------------------
-    const idInterval = setInterval(() => {
+    let idInterval = setInterval(() => {
 
         //------------------versi di marcia -----------------
         if(verso){
@@ -95,6 +95,7 @@ setTimeout(() => {
 
     //---Evento sul bottono stop per fermare l'intervallo----
     stopButton.addEventListener('click', function () {
+        console.log(idInterval);
         clearInterval(idInterval)
         console.log('stop intervallo');
     })
@@ -112,13 +113,26 @@ setTimeout(() => {
 
     //---Evento sul bottono revers per invertire la marcio---
     reversButton.addEventListener('click',function(){
+        clearInterval(idInterval)
+        console.log(verso);
         if(verso){
             verso = false
         }else{
             verso = true
         }
+        console.log(verso);
+        idInterval = setInterval(() => {
+        if(verso){
+            imgvisible = next(cardsLoad, imgvisible, allCardsLoad, images)
+            console.log('NEXT');
+        }else{
+            imgvisible = back(cardsLoad, imgvisible, allCardsLoad, images)
+            console.log('BACK');
+        }
+        }, (timingInterval))
     })
     //-------------------------------------------------------
+
 
 }, (timingTimeout))
 //-----------------------------------------------------------
