@@ -153,6 +153,8 @@ backButton.addEventListener('click', function () {
 
 
 //__________FUNCTION_________________________________________
+
+//-----------Genea una lista immagini da un array------------
 /**
  * 
  * @param {String} srcimg 
@@ -172,9 +174,9 @@ function generet_list_img(srcimg, imgvisible, numberorder) {
     cards.insertAdjacentElement('beforeend', imgEl)
     imgEl.src = `./asset/${srcimg}`
 }
+//-----------------------------------------------------------
 
-
-
+//-Genera un lista di card da un array con la prima visibile-
 function Generat_input_card(srcimg, title, text, imgvisible, numberorder) {
 
     const cards = document.createElement('div')
@@ -206,12 +208,16 @@ function Generat_input_card(srcimg, title, text, imgvisible, numberorder) {
     cardBody.insertAdjacentElement('beforeend', pEl)
     pEl.innerText = text
 }
+//-----------------------------------------------------------
+
+//------funzione per passare all'immagine successiva---------
 /**
  * 
  * @param {Element} cardsLoad 
  * @param {Number} imgvisible 
  * @param {Element} allCardsLoad 
  * @param {Array} images 
+ * @returns 
  */
 function next(cardsLoad, imgvisible, allCardsLoad, images) {
 
@@ -230,6 +236,17 @@ function next(cardsLoad, imgvisible, allCardsLoad, images) {
     add_class(cardsLoad, imgvisible, allCardsLoad)
     return imgvisible
 }
+//-----------------------------------------------------------
+
+//-----funzione per passare all'immagine precedente ---------
+/**
+ * 
+ * @param {Element} cardsLoad 
+ * @param {Number} imgvisible 
+ * @param {Element} allCardsLoad 
+ * @param {Array} images 
+ * @returns 
+ */
 function back(cardsLoad, imgvisible, allCardsLoad, images) {
     remove_class(cardsLoad, imgvisible, allCardsLoad)
     console.log(imgvisible);
@@ -245,16 +262,22 @@ function back(cardsLoad, imgvisible, allCardsLoad, images) {
     add_class(cardsLoad, imgvisible, allCardsLoad)
     return imgvisible
 }
+//-----------------------------------------------------------
 
+//--------funzione per rimuovere la visibilità---------------
 function remove_class(cardsLoad, imgvisible, allCardsLoad) {
     const imgCurrentVisible = cardsLoad[imgvisible]
     const imgAllCurrentVisible = allCardsLoad[imgvisible]
     imgCurrentVisible.classList.remove('displyon')
     imgAllCurrentVisible.classList.remove('primary')
 }
+//-----------------------------------------------------------
+
+//--------funzione per aggiungere la visibilità--------------
 function add_class(cardsLoad, imgvisible, allCardsLoad) {
     const nextimgCurrentVisible = cardsLoad[imgvisible]
     const nextAllImgCurrentVisible = allCardsLoad[imgvisible]
     nextimgCurrentVisible.classList.add('displyon')
     nextAllImgCurrentVisible.classList.add('primary')
 }
+//-----------------------------------------------------------
